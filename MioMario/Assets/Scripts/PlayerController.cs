@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,16 +10,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpSpeed = 15f;
     Rigidbody2D myRigidbody;
     Vector2 input;
+    Collider2D myCollider;
 
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<Collider2D>();
     }
 
     void Update()
     {
         Run();
         FlipFace();
+        GameOver();
     }
 
     void FlipFace()
@@ -44,5 +48,14 @@ public class PlayerController : MonoBehaviour
     void OnJump(InputValue value)
     {
         myRigidbody.velocity += new Vector2(0f, jumpSpeed);
+    }
+
+    void GameOver()
+    {
+        if(myCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
+        {
+            Debug.Log("ho toccato un nemico");
+            SceneManager.LoadScene(1);
+        }
     }
 }
