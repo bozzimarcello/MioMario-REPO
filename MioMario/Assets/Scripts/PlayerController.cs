@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         if(myCollider.IsTouchingLayers(LayerMask.GetMask("Enemy")))
         {
             Debug.Log("ho toccato un nemico");
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
     }
 }
